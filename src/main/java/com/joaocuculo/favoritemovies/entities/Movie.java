@@ -3,7 +3,6 @@ package com.joaocuculo.favoritemovies.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.Objects;
 
 @Entity
@@ -15,21 +14,23 @@ public class Movie implements Serializable {
     private Long id;
 
     @Column(unique = true)
-    private String imdb;
+    private String imdbId;
     private String title;
-    private Integer year;
+    private String year;
     private String type;
+    private String poster;
     private String plot;
 
     public Movie() {
     }
 
-    public Movie(Long id, String imdb, String title, Integer year, String type, String plot) {
+    public Movie(Long id, String imdbId, String title, String year, String type, String poster, String plot) {
         this.id = id;
-        this.imdb = imdb;
+        this.imdbId = imdbId;
         this.title = title;
         this.year = year;
         this.type = type;
+        this.poster = poster;
         this.plot = plot;
     }
 
@@ -42,11 +43,11 @@ public class Movie implements Serializable {
     }
 
     public String getImdb() {
-        return imdb;
+        return imdbId;
     }
 
-    public void setImdb(String imdb) {
-        this.imdb = imdb;
+    public void setImdb(String imdbId) {
+        this.imdbId = imdbId;
     }
 
     public String getTitle() {
@@ -57,11 +58,11 @@ public class Movie implements Serializable {
         this.title = title;
     }
 
-    public Integer getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(Integer year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
@@ -71,6 +72,14 @@ public class Movie implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
     }
 
     public String getPlot() {

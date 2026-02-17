@@ -1,15 +1,21 @@
-//package com.joaocuculo.favoritemovies.config;
-//
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
+package com.joaocuculo.favoritemovies.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
-//
-//@Configuration
-//public class AppConfig {
-//
+import org.springframework.web.reactive.function.client.WebClient;
+
+@Configuration
+public class AppConfig {
+
 //    @Bean
 //    public PasswordEncoder passwordEncoder() {
 //        return new BCryptPasswordEncoder();
 //    }
-//}
+
+    @Bean
+    public WebClient webClient() {
+        return WebClient.builder().baseUrl("http://www.omdbapi.com").build();
+    }
+}

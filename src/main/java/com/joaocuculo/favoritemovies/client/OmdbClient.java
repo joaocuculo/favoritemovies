@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.List;
-
 @Component
 public class OmdbClient {
 
@@ -20,11 +18,12 @@ public class OmdbClient {
         this.webClient = webClient;
     }
 
-    public OmdbSearchResponseDTO search(String search) {
+    public OmdbSearchResponseDTO search(String search, Integer page) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .queryParam("apikey", apiKey)
                         .queryParam("s", search)
+                        .queryParam("page", page)
                         .build())
                 .retrieve()
                 .bodyToMono(OmdbSearchResponseDTO.class)

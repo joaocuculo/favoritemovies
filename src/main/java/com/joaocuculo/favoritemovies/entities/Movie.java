@@ -20,11 +20,13 @@ public class Movie implements Serializable {
     private String type;
     private String poster;
     private String plot;
+    private Double imdbRating;
+    private Long boxOffice;
 
     public Movie() {
     }
 
-    public Movie(Long id, String imdbId, String title, String year, String type, String poster, String plot) {
+    public Movie(Long id, String imdbId, String title, String year, String type, String poster, String plot, Double imdbRating, Long boxOffice) {
         this.id = id;
         this.imdbId = imdbId;
         this.title = title;
@@ -32,6 +34,8 @@ public class Movie implements Serializable {
         this.type = type;
         this.poster = poster;
         this.plot = plot;
+        this.imdbRating = imdbRating;
+        this.boxOffice = boxOffice;
     }
 
     public Long getId() {
@@ -42,11 +46,11 @@ public class Movie implements Serializable {
         this.id = id;
     }
 
-    public String getImdb() {
+    public String getImdbId() {
         return imdbId;
     }
 
-    public void setImdb(String imdbId) {
+    public void setImdbId(String imdbId) {
         this.imdbId = imdbId;
     }
 
@@ -90,15 +94,31 @@ public class Movie implements Serializable {
         this.plot = plot;
     }
 
+    public Double getImdbRating() {
+        return imdbRating;
+    }
+
+    public void setImdbRating(Double imdbRating) {
+        this.imdbRating = imdbRating;
+    }
+
+    public Long getBoxOffice() {
+        return boxOffice;
+    }
+
+    public void setBoxOffice(Long boxOffice) {
+        this.boxOffice = boxOffice;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Movie movie = (Movie) o;
-        return Objects.equals(getImdb(), movie.getImdb());
+        return Objects.equals(getImdbId(), movie.getImdbId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getImdb());
+        return Objects.hashCode(getImdbId());
     }
 }

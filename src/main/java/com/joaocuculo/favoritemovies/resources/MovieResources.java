@@ -4,10 +4,7 @@ import com.joaocuculo.favoritemovies.dto.MovieResponseDTO;
 import com.joaocuculo.favoritemovies.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,6 +14,12 @@ public class MovieResources {
 
     @Autowired
     private MovieService service;
+
+    @GetMapping
+    public ResponseEntity<List<MovieResponseDTO>> search(@RequestParam String search) {
+        List<MovieResponseDTO> movieList = service.search(search);
+        return ResponseEntity.ok().body(movieList);
+    }
 
     @GetMapping(value = "/{imdbId}")
     public ResponseEntity<MovieResponseDTO> findByImdbId(@PathVariable String imdbId) {

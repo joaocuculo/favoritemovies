@@ -1,9 +1,12 @@
 package com.joaocuculo.favoritemovies.client;
 
 import com.joaocuculo.favoritemovies.dto.OmdbMovieResponseDTO;
+import com.joaocuculo.favoritemovies.dto.OmdbSearchResponseDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.List;
 
 @Component
 public class OmdbClient {
@@ -15,6 +18,17 @@ public class OmdbClient {
 
     public OmdbClient(WebClient webClient) {
         this.webClient = webClient;
+    }
+
+    public OmdbSearchResponseDTO search(String search) {
+        return webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .queryParam("apikey", apiKey)
+                        .queryParam("s", search)
+                        .build())
+                .retrieve()
+                .bodyToMono(OmdbSearchResponseDTO.class)
+                .block();
     }
 
     public OmdbMovieResponseDTO findByImdbId(String imdbId) {

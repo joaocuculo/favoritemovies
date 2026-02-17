@@ -14,6 +14,7 @@ public class MovieResponseDTO implements Serializable {
     public MovieResponseDTO() {
     }
 
+    // individual movie constructor
     public MovieResponseDTO(String imdbId, String title, String year, String type, String poster, String plot) {
         this.imdbId = imdbId;
         this.title = title;
@@ -21,6 +22,15 @@ public class MovieResponseDTO implements Serializable {
         this.type = type;
         this.poster = poster;
         this.plot = plot;
+    }
+
+    // search movie constructor
+    public MovieResponseDTO(String imdbId, String title, String year, String type, String poster) {
+        this.imdbId = imdbId;
+        this.title = title;
+        this.year = year;
+        this.type = type;
+        this.poster = poster;
     }
 
     public String getImdbId() {

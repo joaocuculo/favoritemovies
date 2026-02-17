@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
-public class RatingsDTO implements Serializable {
+public class MovieRatingsDTO implements Serializable {
 
     @JsonProperty("Source")
     private String source;
@@ -12,10 +12,10 @@ public class RatingsDTO implements Serializable {
     @JsonProperty("Value")
     private String value;
 
-    public RatingsDTO() {
+    public MovieRatingsDTO() {
     }
 
-    public RatingsDTO(String source, String value) {
+    public MovieRatingsDTO(String source, String value) {
         this.source = source;
         this.value = value;
     }

@@ -46,7 +46,7 @@ public class OmdbMovieResponseDTO implements Serializable {
     private String awards;
 
     @JsonProperty("Ratings")
-    private List<RatingsDTO> ratings;
+    private List<MovieRatingsDTO> ratings;
 
     @JsonProperty("Metascore")
     private String metascore;
@@ -78,7 +78,7 @@ public class OmdbMovieResponseDTO implements Serializable {
     public OmdbMovieResponseDTO() {
     }
 
-    public OmdbMovieResponseDTO(String title, String year, String rated, String released, String runtime, String genre, String director, String writer, String actors, String language, String country, String awards, List<RatingsDTO> ratings, String metascore, String imdbRating, String imdbVotes, String boxOffice, String imdbID, String type, String plot, String poster, String response) {
+    public OmdbMovieResponseDTO(String title, String year, String rated, String released, String runtime, String genre, String director, String writer, String actors, String language, String country, String awards, List<MovieRatingsDTO> ratings, String metascore, String imdbRating, String imdbVotes, String boxOffice, String imdbID, String type, String plot, String poster, String response) {
         this.title = title;
         this.year = year;
         this.rated = rated;
@@ -151,7 +151,7 @@ public class OmdbMovieResponseDTO implements Serializable {
         return awards;
     }
 
-    public List<RatingsDTO> getRatings() {
+    public List<MovieRatingsDTO> getRatings() {
         return ratings;
     }
 

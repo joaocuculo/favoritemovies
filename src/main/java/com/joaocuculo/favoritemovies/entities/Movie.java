@@ -1,8 +1,10 @@
 package com.joaocuculo.favoritemovies.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -22,6 +24,10 @@ public class Movie implements Serializable {
     private String plot;
     private Double imdbRating;
     private Long boxOffice;
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Favorite> favorites;
 
     public Movie() {
     }
@@ -114,11 +120,11 @@ public class Movie implements Serializable {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Movie movie = (Movie) o;
-        return Objects.equals(getImdbId(), movie.getImdbId());
+        return Objects.equals(getId(), movie.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getImdbId());
+        return Objects.hashCode(getId());
     }
 }

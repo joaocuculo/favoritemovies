@@ -18,7 +18,7 @@ public class MovieResponseDTO implements Serializable {
     private String language;
     private String country;
     private String awards;
-    private List<RatingsDTO> ratings;
+    private List<MovieRatingsDTO> ratings;
     private String metascore;
     private String imdbRating;
     private String imdbVotes;
@@ -30,7 +30,7 @@ public class MovieResponseDTO implements Serializable {
     public MovieResponseDTO() {
     }
 
-    public MovieResponseDTO(String imdbId, String title, String year, String rated, String released, String runtime, String genre, String director, String writer, String actors, String language, String country, String awards, List<RatingsDTO> ratings, String metascore, String imdbRating, String imdbVotes, String boxOffice, String type, String poster, String plot) {
+    public MovieResponseDTO(String imdbId, String title, String year, String rated, String released, String runtime, String genre, String director, String writer, String actors, String language, String country, String awards, List<MovieRatingsDTO> ratings, String metascore, String imdbRating, String imdbVotes, String boxOffice, String type, String poster, String plot) {
         this.imdbId = imdbId;
         this.title = title;
         this.year = year;
@@ -106,7 +106,7 @@ public class MovieResponseDTO implements Serializable {
         return awards;
     }
 
-    public List<RatingsDTO> getRatings() {
+    public List<MovieRatingsDTO> getRatings() {
         return ratings;
     }
 

@@ -2,29 +2,7 @@ package com.joaocuculo.favoritemovies.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.io.Serializable;
-
-public class MovieRatingsDTO implements Serializable {
-
-    @JsonProperty("Source")
-    private String source;
-
-    @JsonProperty("Value")
-    private String value;
-
-    public MovieRatingsDTO() {
-    }
-
-    public MovieRatingsDTO(String source, String value) {
-        this.source = source;
-        this.value = value;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public String getValue() {
-        return value;
-    }
-}
+public record MovieRatingsDTO(
+    @JsonProperty("Source") String source,
+    @JsonProperty("Value") String value
+) {}

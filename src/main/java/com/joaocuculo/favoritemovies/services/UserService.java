@@ -18,9 +18,6 @@ public class UserService {
     @Autowired
     private UserRepository repository;
 
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
-
     public List<UserResponseDTO> findAll() {
         return repository.findAll()
                 .stream()
@@ -36,7 +33,7 @@ public class UserService {
     public User insert(UserRequestDTO objDto){
 //        String passwordEncrypted = passwordEncoder.encode(objDto.getPassword());
 //        User obj = new User(objDto.getName(), objDto.getEmail(), passwordEncrypted);
-        User obj = new User(objDto.getName(), objDto.getEmail(), objDto.getPassword());
+        User obj = new User(objDto.name(), objDto.email(), objDto.password());
         return repository.save(obj);
     }
 }

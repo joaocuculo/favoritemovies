@@ -3,50 +3,8 @@ package com.joaocuculo.favoritemovies.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
-import java.io.Serializable;
-
-public class UserRequestDTO implements Serializable {
-
-    @NotBlank
-    private String name;
-
-    @NotBlank
-    @Email
-    private String email;
-
-    @NotBlank
-    private String password;
-
-    public UserRequestDTO() {
-    }
-
-    public UserRequestDTO(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-}
+public record UserRequestDTO(
+    @NotBlank String name,
+    @NotBlank @Email String email,
+    @NotBlank String password
+) {}

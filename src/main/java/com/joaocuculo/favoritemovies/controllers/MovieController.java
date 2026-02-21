@@ -1,4 +1,4 @@
-package com.joaocuculo.favoritemovies.resources;
+package com.joaocuculo.favoritemovies.controllers;
 
 import com.joaocuculo.favoritemovies.dto.MovieResponseDTO;
 import com.joaocuculo.favoritemovies.dto.MovieSearchResponseDTO;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/movies")
-public class MovieResource {
+public class MovieController {
 
     @Autowired
     private MovieService service;

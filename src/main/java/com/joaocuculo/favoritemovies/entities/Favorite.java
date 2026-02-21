@@ -35,8 +35,7 @@ public class Favorite implements Serializable {
     public Favorite() {
     }
 
-    public Favorite(Long id, User user, Movie movie) {
-        this.id = id;
+    public Favorite(User user, Movie movie) {
         this.favoritedAt = Instant.now();
         this.user = user;
         this.movie = movie;

@@ -1,4 +1,4 @@
-package com.joaocuculo.favoritemovies.resources;
+package com.joaocuculo.favoritemovies.controllers;
 
 import com.joaocuculo.favoritemovies.dto.UserRequestDTO;
 import com.joaocuculo.favoritemovies.dto.UserResponseDTO;
@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/users")
-public class UserResource {
+public class UserController {
 
     @Autowired
     private UserService service;

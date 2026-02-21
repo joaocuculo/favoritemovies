@@ -1,4 +1,4 @@
-package com.joaocuculo.favoritemovies.resources;
+package com.joaocuculo.favoritemovies.controllers;
 
 import com.joaocuculo.favoritemovies.dto.FavoriteResponseDTO;
 import com.joaocuculo.favoritemovies.services.FavoriteService;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "users/{userId}/favorites")
-public class FavoriteResource {
+public class FavoriteController {
 
     @Autowired
     private FavoriteService service;

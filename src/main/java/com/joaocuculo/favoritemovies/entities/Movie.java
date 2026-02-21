@@ -32,8 +32,7 @@ public class Movie implements Serializable {
     public Movie() {
     }
 
-    public Movie(Long id, String imdbId, String title, String year, String type, String poster, String plot, Double imdbRating, Long boxOffice) {
-        this.id = id;
+    public Movie(String imdbId, String title, String year, String type, String poster, String plot, Double imdbRating, Long boxOffice) {
         this.imdbId = imdbId;
         this.title = title;
         this.year = year;

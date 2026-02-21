@@ -29,11 +29,4 @@ public class UserService {
         User obj = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
         return new UserResponseDTO(obj.getId(), obj.getName(), obj.getEmail());
     }
-
-    public User insert(UserRequestDTO objDto){
-//        String passwordEncrypted = passwordEncoder.encode(objDto.getPassword());
-//        User obj = new User(objDto.getName(), objDto.getEmail(), passwordEncrypted);
-        User obj = new User(objDto.name(), objDto.email(), objDto.password());
-        return repository.save(obj);
-    }
 }

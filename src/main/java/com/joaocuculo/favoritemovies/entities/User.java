@@ -39,10 +39,20 @@ public class User implements Serializable, UserDetails {
     public User() {
     }
 
-    public User(String name, String email, String password) {
+    public User(String name, String email, String password, UserRole role) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.role = role;
+    }
+
+    public User(Long id, String name, String email, String password, UserRole role, List<Favorite> favorites) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.favorites = favorites;
     }
 
     @Override

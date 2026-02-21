@@ -22,17 +22,17 @@ public class MovieService {
     public MovieSearchResponseDTO search(String search, Integer page) {
         OmdbSearchResponseDTO omdbDto = omdbClient.search(search, page);
 
-        List<MovieSearchDTO> movieList = omdbDto.getSearch()
+        List<MovieSearchDTO> movieList = omdbDto.search()
                 .stream()
                 .map(movie -> new MovieSearchDTO(
-                        movie.getTitle(),
-                        movie.getYear(),
-                        movie.getImdbID(),
-                        movie.getType(),
-                        movie.getPoster()
+                        movie.title(),
+                        movie.year(),
+                        movie.imdbID(),
+                        movie.type(),
+                        movie.poster()
                 )).toList();
 
-        int totalResults = Integer.parseInt(omdbDto.getTotalResults());
+        int totalResults = Integer.parseInt(omdbDto.totalResults());
         int totalPages = (int) Math.ceil(totalResults / 10.0);
 
         return new MovieSearchResponseDTO(movieList, page, totalResults, totalPages);
@@ -41,26 +41,26 @@ public class MovieService {
     public MovieResponseDTO findByImdbId(String imdbId) {
         OmdbMovieResponseDTO omdbDto = omdbClient.findByImdbId(imdbId);
         return new MovieResponseDTO(
-                omdbDto.getImdbID(),
-                omdbDto.getTitle(),
-                omdbDto.getYear(),
-                omdbDto.getRated(),
-                omdbDto.getReleased(),
-                omdbDto.getRuntime(),
-                omdbDto.getGenre(),
-                omdbDto.getDirector(),
-                omdbDto.getWriter(),
-                omdbDto.getActors(),
-                omdbDto.getLanguage(),
-                omdbDto.getCountry(),
-                omdbDto.getAwards(),
-                omdbDto.getRatings(),
-                omdbDto.getMetascore(),
-                omdbDto.getImdbRating(),
-                omdbDto.getImdbVotes(),
-                omdbDto.getBoxOffice(),
-                omdbDto.getType(),
-                omdbDto.getPoster(),
-                omdbDto.getPlot());
+                omdbDto.imdbID(),
+                omdbDto.title(),
+                omdbDto.year(),
+                omdbDto.rated(),
+                omdbDto.released(),
+                omdbDto.runtime(),
+                omdbDto.genre(),
+                omdbDto.director(),
+                omdbDto.writer(),
+                omdbDto.actors(),
+                omdbDto.language(),
+                omdbDto.country(),
+                omdbDto.awards(),
+                omdbDto.ratings(),
+                omdbDto.metascore(),
+                omdbDto.imdbRating(),
+                omdbDto.imdbVotes(),
+                omdbDto.boxOffice(),
+                omdbDto.type(),
+                omdbDto.poster(),
+                omdbDto.plot());
     }
 }

@@ -31,11 +31,4 @@ public class UserController {
         UserResponseDTO obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
     }
-
-    @PostMapping
-    public ResponseEntity<Void> insert(@Valid @RequestBody UserRequestDTO objDto) {
-        User user = service.insert(objDto);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
-        return ResponseEntity.created(uri).build();
-    }
 }

@@ -49,7 +49,8 @@ INSERT INTO tb_movie (imdb_id, title, year, type, poster, plot, imdb_rating, box
 'An insomniac office worker and a soap maker form an underground fight club that evolves into something much more.',
 8.8, 100853753);
 
-INSERT INTO tb_users (name, email, password) VALUES ('Pedro', 'pedro@email.com', '321654987');
+INSERT INTO tb_users (name, email, password, role) VALUES
+('Pedro', 'pedro@email.com', '$2a$10$oE.hIOSW3O5YQI8HwuK0COR4mY1X7gli7yL9zdzKHgxqNbYRMCfQ.', 'ADMIN');
 
 INSERT INTO tb_favorites (favorited_at, user_id, movie_id) VALUES
 ('2026-02-17T10:00:00Z', 1, 1),

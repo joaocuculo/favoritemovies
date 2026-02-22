@@ -23,13 +23,14 @@ public class User implements Serializable, UserDetails {
     @Column(nullable = false)
     private String name;
 
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
-    //@Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private UserRole role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -2,6 +2,7 @@ package com.joaocuculo.favoritemovies.services;
 
 import com.joaocuculo.favoritemovies.client.OmdbClient;
 import com.joaocuculo.favoritemovies.dto.FavoriteResponseDTO;
+import com.joaocuculo.favoritemovies.dto.OmdbMovieResponseDTO;
 import com.joaocuculo.favoritemovies.entities.Favorite;
 import com.joaocuculo.favoritemovies.entities.Movie;
 import com.joaocuculo.favoritemovies.entities.User;
@@ -12,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class FavoriteService {
@@ -43,17 +42,36 @@ public class FavoriteService {
                 ));
     }
 
-    /*
-    public Favorite insert(Long userId, Long movieId) {
-        User user = userRepository.findById(userId);
-        Movie movie = movieRepository.findById(movieId)
+
+    public FavoriteResponseDTO addFavorite(Long userId, String movieImdbId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found."));
+        Movie movie = movieRepository.findByImdbId(movieImdbId)
                 .orElseGet(() -> {
-                    Movie newMovie = omdbClient.
-                })
-        return repository.save(new Favorite(user, movie));
+                    OmdbMovieResponseDTO newMovieDto = omdbClient.findByImdbId(movieImdbId);
+                    Movie newMovie = new Movie(
+                            newMovieDto.imdbID(),
+                            newMovieDto.title(),
+                            newMovieDto.year(),
+                            newMovieDto.type(),
+                            newMovieDto.poster(),
+                            newMovieDto.plot(),
+                            Double.parseDouble(newMovieDto.imdbRating()),
+                            Long.parseLong(newMovieDto.boxOffice().substring(1).replace(",", ""))
+                    );
+
+                    return movieRepository.save(newMovie);
+                });
+
+        Favorite newFavorite = new Favorite(user, movie);
+
+        repository.save(newFavorite);
+
+        return new FavoriteResponseDTO(
+                newFavorite.getId(),
+                newFavorite.getMovie().getImdbId(),
+                newFavorite.getMovie().getTitle(),
+                newFavorite.getMovie().getPoster(),
+                newFavorite.getMovie().getImdbRating(),
+                newFavorite.getFavoritedAt());
     }
-
-     */
-
-    //VERIFICAR ESSA QUESTÃO DE SALVAR FILME FAVORITO
 }

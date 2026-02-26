@@ -10,6 +10,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/favorites")
@@ -25,8 +28,9 @@ public class FavoriteController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> addFavorite(@AuthenticationPrincipal User user, @RequestBody FavoriteRequestDTO favoriteRequestDTO) {
+    public ResponseEntity<FavoriteResponseDTO> addFavorite(@AuthenticationPrincipal User user, @RequestBody FavoriteRequestDTO favoriteRequestDTO) {
         FavoriteResponseDTO favorite = service.addFavorite(user.getId(), favoriteRequestDTO.movieImdbId());
-        return ResponseEntity.ok().build();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{imdbId}").buildAndExpand(favorite.imdbId()).toUri();
+        return ResponseEntity.created(uri).body(favorite);
     }
 }

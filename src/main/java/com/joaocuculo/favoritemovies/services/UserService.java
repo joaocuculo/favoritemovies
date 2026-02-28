@@ -4,10 +4,12 @@ import com.joaocuculo.favoritemovies.dto.UserRequestDTO;
 import com.joaocuculo.favoritemovies.dto.UserResponseDTO;
 import com.joaocuculo.favoritemovies.entities.User;
 import com.joaocuculo.favoritemovies.repositories.UserRepository;
+import com.joaocuculo.favoritemovies.services.exceptions.DatabaseException;
 import com.joaocuculo.favoritemovies.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,6 +36,16 @@ public class UserService {
     public UserResponseDTO findById(Long id) {
         User obj = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
         return new UserResponseDTO(obj.getId(), obj.getName(), obj.getEmail());
+    }
+
+    public void delete(Long id) {
+        try {
+            repository.deleteById(id);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException(e.getMessage());
+        }
     }
 
     public UserResponseDTO update(Long id, UserRequestDTO userDto) {

@@ -4,6 +4,7 @@ import com.joaocuculo.favoritemovies.dto.UserRequestDTO;
 import com.joaocuculo.favoritemovies.dto.UserResponseDTO;
 import com.joaocuculo.favoritemovies.entities.User;
 import com.joaocuculo.favoritemovies.repositories.UserRepository;
+import com.joaocuculo.favoritemovies.services.exceptions.BusinessException;
 import com.joaocuculo.favoritemovies.services.exceptions.DatabaseException;
 import com.joaocuculo.favoritemovies.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
@@ -36,6 +37,21 @@ public class UserService {
     public UserResponseDTO findById(Long id) {
         User obj = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
         return new UserResponseDTO(obj.getId(), obj.getName(), obj.getEmail());
+    }
+
+    public UserResponseDTO register(UserRequestDTO userDto) {
+        if (repository.findByEmail(userDto.email()) != null) {
+            throw new BusinessException("E-mail já cadastrado");
+        }
+        User newUser = new User(
+                userDto.name(),
+                userDto.email(),
+                passwordEncoder.encode(userDto.password()),
+                userDto.role());
+
+        repository.save(newUser);
+
+        return new UserResponseDTO(newUser.getId(), newUser.getName(), newUser.getEmail());
     }
 
     public void delete(Long id) {

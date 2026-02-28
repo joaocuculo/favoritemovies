@@ -4,10 +4,13 @@ import com.joaocuculo.favoritemovies.config.TokenService;
 import com.joaocuculo.favoritemovies.dto.AuthenticationDTO;
 import com.joaocuculo.favoritemovies.dto.LoginResponseDTO;
 import com.joaocuculo.favoritemovies.dto.UserRequestDTO;
+import com.joaocuculo.favoritemovies.dto.UserResponseDTO;
 import com.joaocuculo.favoritemovies.entities.User;
 import com.joaocuculo.favoritemovies.repositories.UserRepository;
+import com.joaocuculo.favoritemovies.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,6 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/auth")
@@ -25,7 +31,7 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private UserRepository repository;
+    private UserService userService;
 
     @Autowired
     private TokenService tokenService;
@@ -41,14 +47,9 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/register")
-    public ResponseEntity<Void> register(@RequestBody @Valid UserRequestDTO data) {
-        if (this.repository.findByEmail(data.email()) != null) return ResponseEntity.badRequest().build();
-
-        String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        User newUser = new User(data.name(), data.email(), encryptedPassword, data.role());
-
-        this.repository.save(newUser);
-
-        return ResponseEntity.ok().build();
+    public ResponseEntity<UserResponseDTO> register(@RequestBody @Valid UserRequestDTO data) {
+        UserResponseDTO user = userService.register(data);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.id()).toUri();
+        return ResponseEntity.created(uri).body(user);
     }
 }

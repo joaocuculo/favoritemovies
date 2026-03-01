@@ -1,4 +1,4 @@
-package com.joaocuculo.favoritemovies.services.exceptions;
+package com.joaocuculo.favoritemovies.exceptions;
 
 public class ResourceNotFoundException extends RuntimeException {
 

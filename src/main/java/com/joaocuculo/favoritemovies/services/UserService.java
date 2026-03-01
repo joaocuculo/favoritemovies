@@ -4,14 +4,13 @@ import com.joaocuculo.favoritemovies.dto.UserRequestDTO;
 import com.joaocuculo.favoritemovies.dto.UserResponseDTO;
 import com.joaocuculo.favoritemovies.entities.User;
 import com.joaocuculo.favoritemovies.repositories.UserRepository;
-import com.joaocuculo.favoritemovies.services.exceptions.BusinessException;
-import com.joaocuculo.favoritemovies.services.exceptions.DatabaseException;
-import com.joaocuculo.favoritemovies.services.exceptions.ResourceNotFoundException;
+import com.joaocuculo.favoritemovies.exceptions.BusinessException;
+import com.joaocuculo.favoritemovies.exceptions.DatabaseException;
+import com.joaocuculo.favoritemovies.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

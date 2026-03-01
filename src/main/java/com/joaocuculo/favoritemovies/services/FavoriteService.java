@@ -9,7 +9,12 @@ import com.joaocuculo.favoritemovies.entities.User;
 import com.joaocuculo.favoritemovies.repositories.FavoriteRepository;
 import com.joaocuculo.favoritemovies.repositories.MovieRepository;
 import com.joaocuculo.favoritemovies.repositories.UserRepository;
+import com.joaocuculo.favoritemovies.services.exceptions.DatabaseException;
+import com.joaocuculo.favoritemovies.services.exceptions.ForbiddenException;
+import com.joaocuculo.favoritemovies.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -42,7 +47,6 @@ public class FavoriteService {
                 ));
     }
 
-
     public FavoriteResponseDTO addFavorite(Long userId, String movieImdbId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found."));
         Movie movie = movieRepository.findByImdbId(movieImdbId)
@@ -73,5 +77,20 @@ public class FavoriteService {
                 newFavorite.getMovie().getPoster(),
                 newFavorite.getMovie().getImdbRating(),
                 newFavorite.getFavoritedAt());
+    }
+
+    public void removeFavorite(Long userId, Long favoriteId) {
+        Favorite favorite = repository.findById(favoriteId)
+                .orElseThrow(() -> new ResourceNotFoundException(favoriteId));
+
+        if (!favorite.getUser().getId().equals(userId)) {
+            throw new ForbiddenException("Você não tem permissão para deletar esse favorito.");
+        }
+
+        try {
+            repository.deleteById(favoriteId);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException(e.getMessage());
+        }
     }
 }

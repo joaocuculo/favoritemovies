@@ -33,4 +33,10 @@ public class FavoriteController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{imdbId}").buildAndExpand(favorite.imdbId()).toUri();
         return ResponseEntity.created(uri).body(favorite);
     }
+
+    @DeleteMapping(value = "/{favoriteId}")
+    public ResponseEntity<Void> removeFavorite(@AuthenticationPrincipal User user, @PathVariable Long favoriteId) {
+        service.removeFavorite(user.getId(), favoriteId);
+        return ResponseEntity.noContent().build();
+    }
 }

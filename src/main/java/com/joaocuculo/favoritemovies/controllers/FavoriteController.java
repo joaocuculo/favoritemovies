@@ -30,7 +30,7 @@ public class FavoriteController {
     @PostMapping
     public ResponseEntity<FavoriteResponseDTO> addFavorite(@AuthenticationPrincipal User user, @RequestBody FavoriteRequestDTO favoriteRequestDTO) {
         FavoriteResponseDTO favorite = service.addFavorite(user.getId(), favoriteRequestDTO.movieImdbId());
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{imdbId}").buildAndExpand(favorite.imdbId()).toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(favorite.id()).toUri();
         return ResponseEntity.created(uri).body(favorite);
     }
 

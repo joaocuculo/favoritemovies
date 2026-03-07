@@ -3,6 +3,7 @@ package com.joaocuculo.favoritemovies.services;
 import com.joaocuculo.favoritemovies.dto.UserRequestDTO;
 import com.joaocuculo.favoritemovies.dto.UserResponseDTO;
 import com.joaocuculo.favoritemovies.entities.User;
+import com.joaocuculo.favoritemovies.entities.enums.UserRole;
 import com.joaocuculo.favoritemovies.repositories.UserRepository;
 import com.joaocuculo.favoritemovies.exceptions.BusinessException;
 import com.joaocuculo.favoritemovies.exceptions.DatabaseException;
@@ -42,11 +43,14 @@ public class UserService {
         if (repository.findByEmail(userDto.email()) != null) {
             throw new BusinessException("E-mail já cadastrado");
         }
+
+        UserRole role = userDto.role() == null ? UserRole.USER : userDto.role();
+
         User newUser = new User(
                 userDto.name(),
                 userDto.email(),
                 passwordEncoder.encode(userDto.password()),
-                userDto.role());
+                role);
 
         repository.save(newUser);
 

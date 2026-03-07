@@ -6,6 +6,7 @@ import com.joaocuculo.favoritemovies.dto.OmdbMovieResponseDTO;
 import com.joaocuculo.favoritemovies.entities.Favorite;
 import com.joaocuculo.favoritemovies.entities.Movie;
 import com.joaocuculo.favoritemovies.entities.User;
+import com.joaocuculo.favoritemovies.exceptions.MovieAlreadyFavoritedException;
 import com.joaocuculo.favoritemovies.repositories.FavoriteRepository;
 import com.joaocuculo.favoritemovies.repositories.MovieRepository;
 import com.joaocuculo.favoritemovies.repositories.UserRepository;
@@ -47,7 +48,7 @@ public class FavoriteService {
     }
 
     public FavoriteResponseDTO addFavorite(Long userId, String movieImdbId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found."));
+        User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found."));
         Movie movie = movieRepository.findByImdbId(movieImdbId)
                 .orElseGet(() -> {
                     OmdbMovieResponseDTO newMovieDto = omdbClient.findByImdbId(movieImdbId);
@@ -64,6 +65,10 @@ public class FavoriteService {
 
                     return movieRepository.save(newMovie);
                 });
+
+        if (repository.existsByUserIdAndMovieId(user.getId(), movie.getId())) {
+            throw new MovieAlreadyFavoritedException("This movie has already been favorited.");
+        }
 
         Favorite newFavorite = new Favorite(user, movie);
 

@@ -1,4 +1,6 @@
 package com.joaocuculo.favoritemovies.dto;
 
-public record FavoriteRequestDTO (String movieImdbId) {
+import jakarta.validation.constraints.NotBlank;
+
+public record FavoriteRequestDTO (@NotBlank String movieImdbId) {
 }

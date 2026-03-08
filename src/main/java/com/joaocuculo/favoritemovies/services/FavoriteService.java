@@ -88,11 +88,11 @@ public class FavoriteService {
                 .orElseThrow(() -> new ResourceNotFoundException(favoriteId));
 
         if (!favorite.getUser().getId().equals(userId)) {
-            throw new ForbiddenException("Você não tem permissão para deletar esse favorito.");
+            throw new ForbiddenException("You are not allowed to delete this favorite.");
         }
 
         try {
-            repository.deleteById(favoriteId);
+            repository.delete(favorite);
         } catch (DataIntegrityViolationException e) {
             throw new DatabaseException(e.getMessage());
         }

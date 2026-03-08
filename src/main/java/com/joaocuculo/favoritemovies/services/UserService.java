@@ -41,7 +41,7 @@ public class UserService {
 
     public UserResponseDTO register(UserRequestDTO userDto) {
         if (repository.findByEmail(userDto.email()) != null) {
-            throw new BusinessException("E-mail já cadastrado");
+            throw new BusinessException("This e-mail already exists");
         }
 
         UserRole role = userDto.role() == null ? UserRole.USER : userDto.role();

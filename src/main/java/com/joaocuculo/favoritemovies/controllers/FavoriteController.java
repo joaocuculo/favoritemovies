@@ -4,6 +4,7 @@ import com.joaocuculo.favoritemovies.dto.FavoriteRequestDTO;
 import com.joaocuculo.favoritemovies.dto.FavoriteResponseDTO;
 import com.joaocuculo.favoritemovies.entities.User;
 import com.joaocuculo.favoritemovies.services.FavoriteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +29,7 @@ public class FavoriteController {
     }
 
     @PostMapping
-    public ResponseEntity<FavoriteResponseDTO> addFavorite(@AuthenticationPrincipal User user, @RequestBody FavoriteRequestDTO favoriteRequestDTO) {
+    public ResponseEntity<FavoriteResponseDTO> addFavorite(@AuthenticationPrincipal User user, @RequestBody @Valid FavoriteRequestDTO favoriteRequestDTO) {
         FavoriteResponseDTO favorite = service.addFavorite(user.getId(), favoriteRequestDTO.movieImdbId());
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(favorite.id()).toUri();
         return ResponseEntity.created(uri).body(favorite);

@@ -59,8 +59,8 @@ public class FavoriteService {
                             newMovieDto.type(),
                             newMovieDto.poster(),
                             newMovieDto.plot(),
-                            Double.parseDouble(newMovieDto.imdbRating()),
-                            Long.parseLong(newMovieDto.boxOffice().substring(1).replace(",", ""))
+                            parseRating(newMovieDto.imdbRating()),
+                            parseBoxOffice(newMovieDto.boxOffice())
                     );
 
                     return movieRepository.save(newMovie);
@@ -95,6 +95,23 @@ public class FavoriteService {
             repository.delete(favorite);
         } catch (DataIntegrityViolationException e) {
             throw new DatabaseException(e.getMessage());
+        }
+    }
+
+    private Double parseRating(String rating) {
+        try {
+            return Double.parseDouble(rating);
+        } catch (NumberFormatException e) {
+            return 0.0;
+        }
+    }
+
+    private Long parseBoxOffice(String boxOffice) {
+        try {
+            if (boxOffice == null || boxOffice.isBlank()) return 0L;
+            return Long.parseLong(boxOffice.substring(1).replace(",", ""));
+        } catch (NumberFormatException e) {
+            return 0L;
         }
     }
 }

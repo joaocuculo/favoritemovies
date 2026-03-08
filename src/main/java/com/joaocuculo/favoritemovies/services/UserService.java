@@ -10,8 +10,9 @@ import com.joaocuculo.favoritemovies.exceptions.DatabaseException;
 import com.joaocuculo.favoritemovies.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,11 +28,9 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public List<UserResponseDTO> findAll() {
-        return repository.findAll()
-                .stream()
-                .map(user -> new UserResponseDTO(user.getId(), user.getName(), user.getEmail()))
-                .collect(Collectors.toList());
+    public Page<UserResponseDTO> findAll(Pageable pageable) {
+        Page<User> users = repository.findAll(pageable);
+        return users.map(user -> new UserResponseDTO(user.getId(), user.getName(), user.getEmail()));
     }
 
     public UserResponseDTO findById(Long id) {
@@ -44,13 +43,11 @@ public class UserService {
             throw new BusinessException("This e-mail already exists");
         }
 
-        UserRole role = userDto.role() == null ? UserRole.USER : userDto.role();
-
         User newUser = new User(
                 userDto.name(),
                 userDto.email(),
                 passwordEncoder.encode(userDto.password()),
-                role);
+                UserRole.USER);
 
         repository.save(newUser);
 
@@ -84,6 +81,5 @@ public class UserService {
         if (userDto.password() != null) {
             entity.setPassword(passwordEncoder.encode(userDto.password()));
         }
-        entity.setRole(userDto.role());
     }
 }

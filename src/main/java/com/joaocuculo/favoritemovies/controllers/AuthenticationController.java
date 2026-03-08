@@ -1,20 +1,17 @@
 package com.joaocuculo.favoritemovies.controllers;
 
-import com.joaocuculo.favoritemovies.config.TokenService;
+import com.joaocuculo.favoritemovies.security.TokenService;
 import com.joaocuculo.favoritemovies.dto.AuthenticationDTO;
 import com.joaocuculo.favoritemovies.dto.LoginResponseDTO;
 import com.joaocuculo.favoritemovies.dto.UserRequestDTO;
 import com.joaocuculo.favoritemovies.dto.UserResponseDTO;
 import com.joaocuculo.favoritemovies.entities.User;
-import com.joaocuculo.favoritemovies.repositories.UserRepository;
 import com.joaocuculo.favoritemovies.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

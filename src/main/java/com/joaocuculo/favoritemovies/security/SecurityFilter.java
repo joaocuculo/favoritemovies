@@ -1,4 +1,4 @@
-package com.joaocuculo.favoritemovies.config;
+package com.joaocuculo.favoritemovies.security;
 
 import com.joaocuculo.favoritemovies.repositories.UserRepository;
 import jakarta.servlet.FilterChain;

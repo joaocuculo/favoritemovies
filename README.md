@@ -288,3 +288,9 @@ src/main/java/com/joaocuculo/favoritemovies/
 ├── security/        # Configuração de segurança, JWT e filtro
 └── services/        # Regras de negócio
 ```
+
+## 🧪 Testando com Postman
+
+A collection com todos os endpoints está disponível em `/postman`.
+Importe o arquivo no Postman e configure as variáveis de ambiente
+`base_url` e `token` antes de usar.

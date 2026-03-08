@@ -53,7 +53,7 @@ public class UserController {
     @PreAuthorize("#id == authentication.principal.id or hasRole('ADMIN')")
     @PutMapping(value = "/{id}")
     @Operation(summary = "Atualiza usuário", description = "Método para atualizar dados de usuário")
-    @ApiResponse(responseCode = "200", description = "Usuário atualiazado com sucesso")
+    @ApiResponse(responseCode = "200", description = "Usuário atualizado com sucesso")
     @ApiResponse(responseCode = "400", description = "Usuário não encontrado")
     @ApiResponse(responseCode = "403", description = "Acesso negado")
     @ApiResponse(responseCode = "500", description = "Erro no servidor")
@@ -64,7 +64,7 @@ public class UserController {
 
     @DeleteMapping(value = "/{id}")
     @Operation(summary = "Deleta usuário por id", description = "Método para deletar um usuário pelo id")
-    @ApiResponse(responseCode = "203", description = "Usuário deletado com sucesso")
+    @ApiResponse(responseCode = "204", description = "Usuário deletado com sucesso")
     @ApiResponse(responseCode = "400", description = "Usuário não encontrado")
     @ApiResponse(responseCode = "500", description = "Erro no servidor")
     public ResponseEntity<Void> delete(@PathVariable Long id) {

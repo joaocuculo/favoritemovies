@@ -28,7 +28,6 @@ import java.net.URI;
 @RestController
 @RequestMapping(value = "/auth")
 @Tag(name = "auth", description = "Controlador de autenticação")
-@SecurityRequirement(name = SecurityConfig.SECURITY)
 public class AuthenticationController {
 
     @Autowired

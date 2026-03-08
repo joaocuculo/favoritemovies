@@ -9,6 +9,6 @@ public class AppConfig {
 
     @Bean
     public WebClient webClient() {
-        return WebClient.builder().baseUrl("http://www.omdbapi.com").build();
+        return WebClient.builder().baseUrl("https://www.omdbapi.com").build();
     }
 }

@@ -51,7 +51,7 @@ public class FavoriteController {
 
     @DeleteMapping(value = "/{favoriteId}")
     @Operation(summary = "Remove favorito", description = "Método para remover um favorito")
-    @ApiResponse(responseCode = "203", description = "Favorito removido com sucesso")
+    @ApiResponse(responseCode = "204", description = "Favorito removido com sucesso")
     @ApiResponse(responseCode = "400", description = "Favorito não encontrado")
     @ApiResponse(responseCode = "403", description = "Acesso negado")
     @ApiResponse(responseCode = "500", description = "Erro no servidor")
